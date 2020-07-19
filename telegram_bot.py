@@ -1,12 +1,10 @@
-from pyowm.owm import OWM
-from pyowm.utils.config import get_default_config
+import pyowm
 import telebot
 
 bot = telebot.TeleBot("1327360961:AAGea4wpJuifaqERTKUtmvwwTpEyilYAizw")
 config_dict = get_default_config()
 config_dict['language'] = 'ru'
-owm = OWM('71bff50aeaf49f58b00382d0c8294c8e', config_dict)
-mgr = owm.weather_manager()
+owm = pyowm.OWM('71bff50aeaf49f58b00382d0c8294c8e')
 
 
 
@@ -14,10 +12,10 @@ mgr = owm.weather_manager()
 @bot.message_handler(content_types=['text'])
 def send_echo(message):
  try:
-    observation = mgr.weather_at_place(message.text)
-    w = observation.weather
-    temp = int(w.temperature('celsius')["temp"])
-    status = (w.detailed_status)
+    observation = owm.weather_at_place(message.text)
+    w = observation.get_weather()
+    temp = int(w.get_temperature('celsius')["temp"])
+    status = w.get_detailed_status()
     answer = "В городе " + message.text + " сейчас " + str(status) + "\n"
     answer += "Температура сейчас в районе " + str(temp) + " градусов " + "\n\n"
     if temp<=10:
