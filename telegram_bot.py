@@ -3,7 +3,7 @@ import telebot
 
 bot = telebot.TeleBot(
     '1327360961:AAGea4wpJuifaqERTKUtmvwwTpEyilYAizw')
-owm = pyowm.OWM('71bff50aeaf49f58b00382d0c8294c8e', Language='ru')
+owm = pyowm.OWM(API_key='71bff50aeaf49f58b00382d0c8294c8e', language='ru')
 
 
 @bot.message_handler(content_types=['text'])
